@@ -1,0 +1,313 @@
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <link rel="stylesheet" 
+href="https://cdn.jsdelivr.net/npm/sweetalert2@8/dist/sweetalert2.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://unpkg.com/7.css">
+<link type="text/css" href="https://getbootstrap.com/1.0.0/assets/css/bootstrap-1.0.0.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/xp.css" />
+<input type="image" src="https://iili.io/HxyChXI.md.jpg" name="cbImage" width="67" height="60">
+<center>
+<style>
+  .form-search{
+    margin: 0 auto;
+    text-align: center;
+
+    font: bold 13px sans-serif;
+     max-width: 70%;
+    position: relative;
+}
+
+.form-search input{
+    width: 60%;
+    box-sizing: border-box;
+    border-bottom-left-radius: 2px;
+    border-top-left-radius: 2px;
+    background-color:  #ffffff;
+    box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.08);
+    padding: 14px 15px 14px 40px;
+    border: 1px solid #b6c3cd;;
+    border-right: 0;
+    color:#4E565C;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.form-search button{
+    border-bottom-right-radius: 2px;
+    border-top-right-radius: 2px;
+    background-color:  #6caee0;
+    box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.08);
+    color: #ffffff;
+    padding: 15px 22px;
+    margin-left: -4px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+.form-search i{
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    font-size: 16px;
+    color: #80A3BD;
+}
+</style>
+<form class="form-search" method="get" action="#">
+            <input type="search" name="search" placeholder="Search for some videos...">
+            <button type="submit">Search</button>
+            
+        </form>
+</center>
+<center>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/LpgKQiE_4eQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+<center>
+  <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+      <div align="right">
+<!-- LikeBtn.com BEGIN -->
+<span class="likebtn-wrapper" data-theme="padded" data-identifier="item_1"></span>
+<script>(function(d,e,s){if(d.getElementById("likebtn_wjs"))return;a=d.createElement(e);m=d.getElementsByTagName(e)[0];a.async=1;a.id="likebtn_wjs";a.src=s;m.parentNode.insertBefore(a, m)})(document,"script","//w.likebtn.com/js/w/widget.js");</script>
+<!-- LikeBtn.com END -->
+  </div>
+<script>
+  const commentsDiv = document.getElementById('comments');
+let result = '';
+let counter = 0;
+
+fetch('https://rentapartment-kiev.com/comment/comments.php', {
+      method: 'POST',
+      headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: 'sql=SELECT * FROM comments ORDER BY comment_id DESC;'
+      }).then(response => response.json()).then(comments => {
+
+          for (let comment of comments) {
+               counter++;
+               result += `<div id="comment_header"><div id="id">${counter}</div><div id="user_name">${comment.name}</div><div id="date">${comment.date}</div></div><div id="user_comment">${comment.comment}</div>`;             
+          }
+               commentsDiv.innerHTML = `<div id=counter>Comments(${counter})</div>${result}`;
+});
+
+
+const name = document.getElementById('name');
+const comment = document.getElementById('comment');
+const submit = document.getElementById('submit');
+
+name.onkeydown = () => name.setCustomValidity('');
+comment.onkeydown = () => comment.setCustomValidity('');
+
+submit.onclick = () => {
+    if (name.value.length == 0)
+        name.setCustomValidity('The field with a name cannot be empty.');
+    else
+        name.setCustomValidity('');
+
+    if (comment.value == 0)
+        comment.setCustomValidity('The field with a comment cannot be empty.');
+    else
+        comment.setCustomValidity('');
+
+    if (name.value.length == 0 || comment.value.length == 0) {
+        submit.type = 'submit';
+    }
+    else {
+    submit.type = 'button';
+
+        fetch('https://rentapartment-kiev.com/comment/comments.php', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `sql=INSERT INTO comments (name, comment, date) VALUES('${name.value}', '${comment.value}', '${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}');`
+        }).then(response => response.json()).then(comments => {
+      
+            for (let comment of comments) {
+                result = `<div id="comment_header"><div id="id">${comment.comment_id}</div><div id="user_name">${comment.name}</div><div id="date">${comment.date}</div></div><div id="user_comment">${comment.comment}</div>` + result;
+                counter++;
+            }
+            commentsDiv.innerHTML = `<div id=counter>Comments(${counter})</div>${result}`;
+
+        });
+    }
+}
+</script>
+<style>
+  body {
+    
+    margin: 0;
+
+}
+
+#post_form {
+
+    margin-left: 20%;
+    margin-right: 20%;
+    width: 60%;
+
+}
+
+label {
+
+    font-size: 18px;
+
+}
+
+#name:focus, #comment:focus, #submit:focus {
+
+    -webkit-box-shadow: 0 0 5px black;
+    box-shadow: 0 0 5px black;
+    outline: none;
+
+}
+
+#name, #comment, #submit {
+
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid black;
+    font-size: 18px;
+
+}
+
+#submit {
+
+    text-align: center;
+    min-height: 48px;
+    min-width: 48px;
+    background-color: rgb(187, 255, 254);
+    cursor: pointer;
+
+}
+
+#counter {
+
+    font-size: 18px;
+    margin-top: 50px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid rgb(0, 90, 125);
+
+}
+
+#comment_header {
+
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+
+}
+
+#id, #user_name, #date, #user_comment {
+
+    padding: 0.5em;
+    font-size: 18px;
+    font-weight: bold;
+
+}
+
+#id, #date {
+
+    background-color: rgb(0, 90, 125);
+    color: white;
+
+}
+
+#user_name {
+
+    background-color: white;
+    color: rgb(0, 90, 125);
+
+}
+
+#user_name {
+
+    border-top: 1px solid rgb(0, 90, 125);
+    border-bottom: 1px solid rgb(0, 90, 125);
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+
+}
+
+#user_comment {
+
+    border: 1px solid rgb(0, 90, 125);
+    background-color: rgb(255, 247, 140);
+    margin-bottom: 40px;
+
+}
+
+#comments {
+
+    margin-left: 5%;
+    width: 90%;
+
+}
+
+footer {
+
+    padding-bottom: 15px;
+
+}
+
+@media screen and (min-width:590px) {
+
+    #comments, #post_form {
+    
+        margin-left: 25%;
+        width: 50%;
+    
+    }
+
+}
+</style>
+<header>
+        <center><h1>Comment Section</h1></center>
+    </header>
+    <main>
+        <form id="post_form" role="form" aria-label="post comment">
+            <label id="nameLabel" for="name">Name:</label>
+            <br>
+            <input type="text" id="name" maxlength="17" required>
+            <br>
+            <label id="commentLabel" for="comment">Comment:</label>
+            <br>
+            <textarea id="comment" maxlength="3000" required></textarea>
+            <br>
+          <div
+  class="g-recaptcha"
+  data-sitekey="6Lfx6pMjAAAAAIfAOC-xGU59OlTyZ0L223w0U5UQ"
+>
+</div>
+
+            <input type="submit" id="submit" value="Post">
+        </form>
+
+        <div id="comments"></div>
+    </main>
+    <footer>
+      
+    </footer>
+<script>
+  Swal.fire(
+  'Notice',
+  'Cosmic Panda is a beta and work in progress theme, that sometimes, may produce some unexpected errors. We will provide a fix if there's an issue.',
+  'info'
+)
+  </script>
